@@ -207,3 +207,49 @@ header {
   background-color: hsl(35 60% 55%);
   transform: scale(1.05);
 }
+
+/* Responsive media queries */
+@media (max-width: 768px) {
+  .top-nav {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logo {
+    height: 60px;
+    width: 60px;
+  }
+
+  .app-name p {
+    font-size: 40px;
+  }
+
+  .btm-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .background {
+    height: 50vh;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-name p {
+    font-size: 28px;
+  }
+
+  .emergency-btn {
+    padding: 12px 25px;
+    font-size: 18px;
+  }
+
+  .background span {
+    font-size: 16px;
+  }
+}

@@ -219,7 +219,10 @@ header {
     height: 60px;
     width: 60px;
   }
-
+  .logo img {
+    height: 60px;
+    width: 60px;
+  }
   .app-name p {
     font-size: 40px;
   }

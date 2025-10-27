@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real time Table Mountain map</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="table-top.css">
+    <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body { margin: 0; }
+    #map { height: 100vh; width: 100%; }
+    .info {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <div class="top-nav">
+            <div class="logo">
+                <a href="/index.html"><img src="/images/logo.png" alt="table-mountain-logo"></a>
+            </div>
+            <div class="app-name">
+                <p>MAP MY MOUNTAIN</p>
+            </div>
+        </div>
+       <div class="btm-nav">
+            <div class="nav-btn">
+                <a href="/pages/table-top.html"><button>Places</button></a>
+            </div>
+            <div class="nav-btn">
+                <a href="/pages/feedback.html"><button>Maps</button></a>
+            </div>
+       </div>
+    </header>
+    <div id="map"></div>
+
+    <div class="footer">
+        <div class="footer-btn">
+            <a href="/pages/weather.html"><button>Weather</button></a>
+        </div>
+        <div class="footer-btn">
+            <a href="/pages/feedback.html"><button>Feedback</button></a>
+        </div>
+    </div>
+
+    <script>
+        // Coordinates of Table Mountain
+        const tableMountain = [-33.9625, 18.4098];
+
+        // Initialize map
+        const map = L.map('map').setView(tableMountain, 13);
+
+        // Add OpenStreetMap tiles (free!)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add marker for Table Mountain
+        L.marker(tableMountain)
+        .addTo(map)
+        .bindPopup("<b>Table Mountain Summit</b><br>Welcome to Map My Mountain!")
+        .openPopup();
+
+        // Add more markers (optional)
+        const places = [
+        { name: "Cableway Station", lat: -33.9573, lng: 18.4032 },
+        { name: "Platteklip Gorge Trail", lat: -33.9518, lng: 18.4070 },
+        { name: "Maclear’s Beacon", lat: -33.9662, lng: 18.4366 }
+        ];
+
+        places.forEach(place => {
+        L.marker([place.lat, place.lng])
+            .addTo(map)
+            .bindPopup(`<b>${place.name}</b>`);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live weather</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+     <header>
+        <div class="top-nav">
+            <div class="logo">
+                <a href="/index.html"><img src="/images/logo.png" alt="table-mountain-logo"></a>
+            </div>
+            <div class="app-name">
+                <p>MAP MY MOUNTAIN</p>
+            </div>
+        </div>
+       <div class="btm-nav">
+            <div class="nav-btn">
+                <a href="/pages/table-top.html"><button>Places</button></a>
+            </div>
+            <div class="nav-btn">
+                <button>Maps</button>
+            </div>
+       </div>
+    </header>
+    <section>
+        <div class="weather-table">
+            <h3>TABLE MOUNTAIN WEATHER</h3>
+            <div class="current-forecast">
+                <img src="/images/partly-cloudy.png" alt="">
+                <div>
+                    <p>Partly cloudy</p>
+                    <p>&uarr;25&deg; &darr;16&deg;</p>
+                </div>
+            </div>
+            <h1>22&deg;</h1>
+            <p class="forecast"><strong>FORECAST</strong></p>
+            <div class="table">
+                <table>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td><img class="info-box-weather-icon" src="/images/sunny.png" alt="fbdfbh"></td>
+                        <td>&uarr;28&deg;</td>
+                        <td>&darr;17&deg;</td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td><img class="info-box-weather-icon" src="/images/rainy.png" alt=""></td>
+                        <td>&uarr;20&deg;</td>
+                        <td>&darr;12&deg;</td>
+                    </tr><tr>
+                        <td>Thursday</td>
+                        <td><img class="info-box-weather-icon" src="/images/partly-cloudy.png" alt=""></td>
+                        <td>&uarr;25&deg;</td>
+                        <td>&darr;14&deg;</td>
+                    </tr><tr>
+                        <td>Friday</td>
+                        <td><img class="info-box-weather-icon" src="/images/sunny.png" alt="efw"></td>
+                        <td>&uarr;28&deg;</td>
+                        <td>&darr;17&deg;</td>
+                    </tr><tr>
+                        <td>Saturday</td>
+                        <td><img class="info-box-weather-icon" src="/images/rainy.png" alt=""></td>
+                        <td>&uarr;20&deg;</td>
+                        <td>&darr;12&deg;</td>
+                    </tr><tr>
+                        <td>Sunday</td>
+                        <td><img class="info-box-weather-icon" src="/images/partly-cloudy.png" alt=""></td>
+                        <td>&uarr;25&deg;</td>
+                        <td>&darr;13&deg;</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="footer">
+                <div class="footer-btn">
+                    <a href="/pages/feedback.html"><button>Weather</button></a>
+                </div>
+                <div class="footer-btn">
+                    <button>Feedback</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+    // Table Mountain coordinates
+        const latitude = -33.9625;
+        const longitude = 18.4098;
+
+        const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Africa/Johannesburg`;
+
+        async function updateWeather() {
+            try {
+            const response = await fetch(weatherURL);
+            const data = await response.json();
+
+            // Get current weather
+            const current = data.current_weather;
+            const daily = data.daily;
+
+            // Select elements
+            const tempNow = document.querySelector('.weather-table h1');
+            const condition = document.querySelector('.current-forecast p');
+            const currentImg = document.querySelector('.current-forecast img');
+            const forecastTable = document.querySelector('table');
+
+            // Update current weather
+            tempNow.innerHTML = `${Math.round(current.temperature)}&deg;`;
+
+            // Get weather description
+            const weatherDescription = getWeatherDescription(current.weathercode);
+            condition.textContent = weatherDescription;
+
+            // Update image (you can use your existing /images/ icons)
+            currentImg.src = getWeatherIcon(current.weathercode);
+
+            // Clear old forecast
+            forecastTable.innerHTML = '';
+
+            // Update forecast for next 6 days
+            for (let i = 1; i < 7; i++) {
+                const dayName = new Date(daily.time[i]).toLocaleDateString('en-ZA', { weekday: 'long' });
+                const maxTemp = Math.round(daily.temperature_2m_max[i]);
+                const minTemp = Math.round(daily.temperature_2m_min[i]);
+                const icon = getWeatherIcon(daily.weathercode[i]);
+
+                forecastTable.innerHTML += `
+                <tr>
+                    <td>${dayName}</td>
+                    <td><img class="info-box-weather-icon" src="${icon}" alt=""></td>
+                    <td>&uarr;${maxTemp}&deg;</td>
+                    <td>&darr;${minTemp}&deg;</td>
+                </tr>
+                `;
+            }
+
+            } catch (error) {
+            console.error("Weather fetch failed:", error);
+            }
+        }
+
+        // Function to map weather codes to your icons
+        function getWeatherIcon(code) {
+            if ([0, 1].includes(code)) return '/images/sunny.png';
+            if ([2, 3].includes(code)) return '/images/partly-cloudy.png';
+            if ([45, 48].includes(code)) return '/images/cloudy.png';
+            if ([51, 61, 80].includes(code)) return '/images/rainy.png';
+            if ([71, 85].includes(code)) return '/images/snow.png';
+            return '/images/partly-cloudy.png';
+        }
+
+        // Function to map weather code to readable text
+        function getWeatherDescription(code) {
+            const descriptions = {
+            0: 'Clear Sky',
+            1: 'Mainly Clear',
+            2: 'Partly Cloudy',
+            3: 'Overcast',
+            45: 'Fog',
+            48: 'Rime Fog',
+            51: 'Light Drizzle',
+            61: 'Light Rain',
+            80: 'Showers',
+            71: 'Snow',
+            85: 'Snow Showers'
+            };
+            return descriptions[code] || 'Unknown';
+        }
+
+        // Update immediately and refresh every 10 minutes
+        updateWeather();
+        setInterval(updateWeather, 600000);
+    </script>
+
+</body>
+</html>

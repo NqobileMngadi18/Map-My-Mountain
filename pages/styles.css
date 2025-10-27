@@ -1,0 +1,225 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+section {
+    width: 100vw;
+    height: 600px;
+    /* background-color: rgb(13, 36, 28); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.pics-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-img {
+    height: 300px;
+    width: 300px;
+    /* background-color: aliceblue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-img img {
+    height: 290px;
+    width: 290px;
+    border-radius: 10px;
+}
+
+.ref-imgs {
+    height: 300px;
+    width: 300px;
+    /* background-color: rgb(103, 137, 167); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.img-container {
+    height: 280px;
+    width: 130px;
+    /* background-color: black; */
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-container img {
+    height: 120px;
+    width: 110px;
+    margin-top: 12px;
+    margin-left: 8px;
+    border-radius: 5px;
+}
+
+/* WEATHER */
+
+.weather-table {
+    height: 700px;
+    width: 100%;
+    background: linear-gradient(90deg, hsla(220, 78%, 29%, 1) 0%, hsla(221, 45%, 73%, 1) 100%);    margin-top: 100px;
+}
+
+.current-forecast {
+    display: flex;
+    height: 100px;
+    width: 200px;
+    background: linear-gradient(90deg, hsla(220, 78%, 29%, 1) 0%, hsla(221, 45%, 73%, 1) 100%);    
+    margin-left: 25px;
+    margin-top: 35px;
+}
+
+.current-forecast div {
+    padding-top: 30px;
+    gap: 10px;
+}
+
+.weather-table h1 {
+    font-size: 45px;
+    font-weight: 800;
+    margin-top: 25px;
+    margin-left: 15px;
+}
+
+.weather-table h3 {
+    justify-self: center;
+    font-size: 40px;
+}
+
+.forecast {
+    font-weight: 500;
+    margin-left: 15px;
+    margin-top: 25px;
+}
+
+.table {
+    width: 100%;
+    margin-left: 15px;
+}
+
+.table img {
+    width: 50px !important;
+    height: 50px !important;
+    margin-top: 2px;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    border-top: 1px solid #131313;
+}
+
+/* Feedback */
+
+form {
+    height: 460px;
+    width: 460px;
+    background: linear-gradient(90deg, hsla(220, 78%, 29%, 1) 0%, hsla(221, 45%, 73%, 1) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 61px rgba(34, 4, 4, 0.925);
+}
+
+.feedback {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.feedback input {
+    height: 30px;
+    width: 350px;
+    border-radius: 2.5px;
+}
+
+.feedback textarea {
+    height: 100px;
+    border-radius: 5px;
+}
+
+.feedback button{
+    padding: 10px 20px;
+    font-size: 16px;
+    height: 48px;
+    width: 128px;
+    border: none;
+    border-radius: 13px;
+    background-color: hsl(35 90% 55%);
+    color: white;
+    cursor: pointer;
+    border: 0.1px solid #c0ba65;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.747);
+    align-self: center;
+}
+
+.feedback button:hover {
+    background-color: hsl(35 60% 55%);
+    transform: scale(1.05);
+}
+
+.place-description {
+    background: linear-gradient(90deg, hsla(220, 78%, 29%, 1) 0%, hsla(221, 45%, 73%, 1) 100%);
+    height: 300px;
+    width: 90%;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 40px 60px rgba(39, 16, 16, 0.747);
+}
+
+.login-container {
+    align-self: center;
+    justify-self: center;
+}
+
+.login-form {
+    height: 400px;
+    margin-top: 30px;
+}
+
+.login-input {
+    height: 30px;
+    width: 350px;
+    border-radius: 2.5px;
+}
+
+.login-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    height: 48px;
+    width: 128px;
+    border: none;
+    border-radius: 13px;
+    background-color: hsl(35 90% 55%);
+    color: white;
+    cursor: pointer;
+    border: 0.1px solid #c0ba65;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.747);
+    align-self: center;
+}
+
+.login-form button:hover{
+    background-color: hsl(35 60% 55%);
+    transform: scale(1.05);
+}

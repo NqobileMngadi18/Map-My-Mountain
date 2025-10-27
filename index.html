@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map My Mountain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="top-nav">
+            <div class="logo">
+                <img src="images/logo.png" alt="table-mountain-logo">
+            </div>
+            <div class="app-name">
+                <p>MAP MY MOUNTAIN</p>
+            </div>
+            <a href="/pages/login.html"><button>Login</button></a>
+        </div>
+       <div class="btm-nav">
+            <div class="nav-btn">
+                <a href="/pages/table-top.html"><button>Places</button></a>
+            </div>
+            <div class="nav-btn">
+                <a href="/pages/maps.html"><button>Maps</button></a>
+            </div>
+       </div>
+    </header>
+    <section>
+        <div class="main-section">
+            <div class="background">
+                <img src="images/background-image.jpg" alt="table-mountain">
+                <span class="lead" id="typed"></span>
+                <button class="emergency-btn">EMERGENCY</button>
+            </div>
+            <div class="footer">
+                <div class="footer-btn">
+                    <a href="/pages/weather.html"><button>Weather</button></a>
+                </div>
+                <div class="footer-btn">
+                    <a href="/pages/feedback.html"><button>Feedback</button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        var typed = new Typed('#typed', {
+            strings: [
+                'Explore Table Mountain.',
+                'Check live weather.',
+                'Find emergency help fast.',
+                'Discover local history.'
+            ],
+            typeSpeed: 70,
+            backSpeed: 40,
+            backDelay: 1500,
+            loop: true
+        });
+
+        // Emergency button function
+        document.querySelector(".emergency-btn").addEventListener("click", function() {
+            const button = this;
+            button.disabled = true; // Prevent double clicking
+            button.textContent = "Sending alert...";
+
+            if (!navigator.geolocation) {
+                alert("Geolocation not supported by your browser.");
+                button.disabled = false;
+                button.textContent = "EMERGENCY";
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude.toFixed(5);
+                    const lon = position.coords.longitude.toFixed(5);
+
+                    // Show success message on the screen
+                    alert(`Emergency alert sent!\nYour location:\nLatitude: ${lat}\nLongitude: ${lon}`);
+
+                    // Send data to EmailJS (requires setup)
+                    // sendEmailAlert(lat, lon);
+
+                    // Reset button
+                    button.textContent = "Alert Sent!";
+                    setTimeout(() => {
+                        button.disabled = false;
+                        button.textContent = "EMERGENCY";
+                    }, 4000);
+                },
+                (error) => {
+                    alert("Unable to access your location. Please check your GPS settings.");
+                    button.disabled = false;
+                    button.textContent = "EMERGENCY";
+                }
+            );
+        });
+
+        
+        (function(){
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+
+        function sendEmailAlert(lat, lon) {
+            const templateParams = {
+                message: `Emergency alert triggered!\nLocation: ${lat}, ${lon}`
+            };
+
+            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+            .then(() => {
+                alert("Alert email sent successfully!");
+            }, (error) => {
+                alert("Failed to send alert. Please check your connection.");
+                console.error(error);
+            });
+        }
+
+    </script>
+    <script src="js/auth.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/main.js"></script>
+
+
+</body>
+</html>

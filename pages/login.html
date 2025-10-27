@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Map My Mountain</title>
+  <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="top-nav">
+      <div class="logo">
+        <a href="../index.html"><img src="../images/logo.png" alt="table-mountain-logo"></a>
+      </div>
+      <div class="app-name">
+        <p>MAP MY MOUNTAIN</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="login-container">
+    <form id="loginForm" class="login-form">
+      <label for="email">Email Address</label>
+      <input class="login-input" type="email" id="email" placeholder="Enter your email..." required />
+
+      <label for="password">Password</label>
+      <input class="login-input" type="password" id="password" placeholder="Enter your password..." required />
+
+      <div class="options">
+        <input type="checkbox" id="remember">
+        <label for="remember">Remember me</label>
+      </div>
+
+      <!-- This line will show login errors -->
+      <p id="error-message" style="color:red; font-size:14px; text-align:center;"></p>
+
+      <button type="submit">Sign in</button>
+    </form>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Redirect if already logged in
+      if (isLoggedIn()) {
+        window.location.href = "../index.html";
+      }
+
+      const loginForm = document.getElementById("loginForm");
+      const errorMessage = document.getElementById("error-message");
+
+      loginForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const submitButton = loginForm.querySelector("button[type='submit']");
+
+        submitButton.textContent = "Signing in...";
+        submitButton.disabled = true;
+        errorMessage.textContent = "";
+
+        try {
+          const response = await loginUser({ email, password });
+          window.location.href = "../index.html"; // ✅ correct path
+        } catch (error) {
+          errorMessage.textContent = error.message || "Invalid credentials.";
+        } finally {
+          submitButton.textContent = "Sign in";
+          submitButton.disabled = false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
